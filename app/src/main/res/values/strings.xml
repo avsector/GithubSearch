@@ -3,5 +3,6 @@
     <string name="tryAgain">Try again</string>
     <string name="lookingFor">What are you looking for?</string>
     <string name="allRepositoriesNotice">All github repositories are at the tip of your fingers</string>
-    <string name="repositorySearchHint">Repository name...</string>
+    <string name="repositorySearchHint">Repository name…</string>
+    <string name="score">Score: %d</string>
 </resources>
