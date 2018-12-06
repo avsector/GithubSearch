@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cardItemCornerRadius">4dp</dimen>
+    <dimen name="cardItemVerticalSpacing">6dp</dimen>
+    <dimen name="cardItemHorizontalSpacing">12dp</dimen>
+    <dimen name="cardItemContentPadding">8dp</dimen>
+    <dimen name="cardItemTitle">16sp</dimen>
+    <dimen name="cardItemDescription">12sp</dimen>
+    <dimen name="cardItemBetweenLinesSpacing">1dp</dimen>
+    <dimen name="cardItemStroke">1dp</dimen>
+    <dimen name="cardItemElevation">0dp</dimen>
+    <dimen name="itemRepoImageSize">60dp</dimen>
+    <dimen name="editTextMinHeight">40dp</dimen>
+    <dimen name="editTextElevation">3dp</dimen>
+    <dimen name="searchInputHorizontalMargin">20dp</dimen>
+    <dimen name="searchInputVerticalMargin">30dp</dimen>
+    <dimen name="searchMotoTitle">22sp</dimen>
+    <dimen name="searchMotoDescription">14sp</dimen>
+</resources>
