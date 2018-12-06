@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.samsaz.githubsearch.R
 import com.samsaz.githubsearch.ui.LoadingView
+import com.samsaz.githubsearch.util.checkAllMatched
 import kotlinx.android.synthetic.main.activity_search.*
 
 
@@ -60,6 +61,6 @@ class SearchActivity: AppCompatActivity() {
                 initialNoticeView.visibility = View.GONE
                 loadingView.setState(LoadingView.State.Progress())
             }
-        }
+        }.checkAllMatched
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import com.samsaz.githubsearch.R
+import com.samsaz.githubsearch.util.checkAllMatched
 import kotlinx.android.synthetic.main.view_loading.view.*
 
 /**
@@ -66,7 +67,7 @@ class LoadingView @JvmOverloads constructor(
             is State.Success -> {
                 visibility = View.GONE
             }
-        }
+        }.checkAllMatched
     }
 
     sealed class State {
