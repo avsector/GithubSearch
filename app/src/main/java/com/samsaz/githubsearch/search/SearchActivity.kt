@@ -1,7 +1,6 @@
 package com.samsaz.githubsearch.search
 
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -11,9 +10,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.samsaz.githubsearch.R
+import com.samsaz.githubsearch.dagger.inject
 import com.samsaz.githubsearch.ui.LoadingView
 import com.samsaz.githubsearch.util.checkAllMatched
 import kotlinx.android.synthetic.main.activity_search.*
+import javax.inject.Inject
 
 
 /**
@@ -23,6 +24,8 @@ import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity: AppCompatActivity() {
 
+    @Inject
+    lateinit var viewModelFactory: SearchViewModelFactory
     private val repositoryAdapter = GithubRepoAdapter()
     private lateinit var viewModel: SearchViewModel
 
@@ -30,10 +33,7 @@ class SearchActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        viewModel = ViewModelProviders.of(this)[SearchViewModel::class.java]
-        viewModel.stateLiveData.observe(this, Observer{
-            updateState(it)
-        })
+        inject(this)
 
         etInput.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -49,6 +49,11 @@ class SearchActivity: AppCompatActivity() {
 
         rvList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvList.adapter = repositoryAdapter
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[SearchViewModel::class.java]
+        viewModel.stateLiveData.observe(this, Observer{
+            updateState(it)
+        })
 
         loadingView.actionHandler = {
             textChanged(etInput.text.toString())
@@ -76,7 +81,8 @@ class SearchActivity: AppCompatActivity() {
             is SearchViewState.Empty -> {
                 rvList.visibility = View.GONE
                 initialNoticeView.visibility = View.GONE
-                loadingView.setState(LoadingView.State.Notice(getString(R.string.noResults)))
+                loadingView.setState(LoadingView.State.Notice(getString(R.string.noResults))
+                )
             }
             is SearchViewState.Error -> {
                 rvList.visibility = View.GONE
