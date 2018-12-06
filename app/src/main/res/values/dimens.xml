@@ -16,4 +16,6 @@
     <dimen name="searchInputVerticalMargin">30dp</dimen>
     <dimen name="searchMotoTitle">22sp</dimen>
     <dimen name="searchMotoDescription">14sp</dimen>
+    <dimen name="loadingViewNoticeMargin">20dp</dimen>
+    <dimen name="loadingViewNoticeSize">16sp</dimen>
 </resources>

@@ -19,6 +19,11 @@
         android:paddingLeft="@dimen/cardItemHorizontalSpacing"
         android:paddingRight="@dimen/cardItemHorizontalSpacing" />
 
+    <com.samsaz.githubsearch.ui.LoadingView
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvList"
         android:layout_width="match_parent"
