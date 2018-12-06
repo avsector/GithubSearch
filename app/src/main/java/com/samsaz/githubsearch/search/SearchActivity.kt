@@ -2,10 +2,14 @@ package com.samsaz.githubsearch.search
 
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.samsaz.githubsearch.R
 import com.samsaz.githubsearch.ui.LoadingView
 import com.samsaz.githubsearch.util.checkAllMatched
@@ -30,6 +34,29 @@ class SearchActivity: AppCompatActivity() {
         viewModel.stateLiveData.observe(this, Observer{
             updateState(it)
         })
+
+        etInput.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s != null) {
+                    textChanged(s.toString())
+                }
+            }
+        })
+
+        rvList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rvList.adapter = repositoryAdapter
+
+        loadingView.actionHandler = {
+            textChanged(etInput.text.toString())
+        }
+    }
+
+    fun textChanged(text: String) {
+        viewModel.onEvent(TermUpdated(text))
     }
 
     private fun updateState(state: SearchViewState) {
