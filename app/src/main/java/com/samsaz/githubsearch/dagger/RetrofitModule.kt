@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.samsaz.githubsearch.BuildConfig
+import com.samsaz.githubsearch.util.enableTls12
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -34,6 +35,7 @@ class RetrofitModule(private val baseUrl: String) {
     internal fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .enableTls12()
             .build()
     }
 

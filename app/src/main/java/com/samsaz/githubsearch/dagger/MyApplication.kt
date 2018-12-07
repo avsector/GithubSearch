@@ -3,6 +3,7 @@ package com.samsaz.githubsearch.dagger
 import android.app.Application
 import android.content.Context
 import com.samsaz.githubsearch.BuildConfig
+import javax.inject.Inject
 
 /**
  * Copyright 2018
@@ -12,8 +13,8 @@ import com.samsaz.githubsearch.BuildConfig
 class MyApplication: Application() {
     private val coreComponent: CoreComponent by lazy {
         DaggerCoreComponent.builder()
-            .githubApiModule(GithubApiModule())
             .retrofitModule(RetrofitModule(BuildConfig.ENDPOINT))
+            .application(this)
             .build()
     }
 

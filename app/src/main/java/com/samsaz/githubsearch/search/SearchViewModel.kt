@@ -4,13 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.samsaz.githubsearch.data.CoroutineDispatcherProvider
 import com.samsaz.githubsearch.data.GithubRepository
-import com.samsaz.githubsearch.util.checkAllMatched
 import com.samsaz.githubsearch.util.Result
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.samsaz.githubsearch.util.TlsProviderInstaller
+import com.samsaz.githubsearch.util.checkAllMatched
+import kotlinx.coroutines.*
 import javax.inject.Inject
+import javax.net.ssl.SSLHandshakeException
 
 /**
  * Copyright 2018
@@ -19,7 +18,8 @@ import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
     private val githubRepository: GithubRepository,
-    dispatcherProvider: CoroutineDispatcherProvider
+    private val dispatcherProvider: CoroutineDispatcherProvider,
+    private val tlsProviderInstaller: TlsProviderInstaller? = null
 ) : ViewModel() {
 
     private val parentJob = Job()
@@ -58,6 +58,15 @@ class SearchViewModel @Inject constructor(
                                 SearchViewState.Success(result.data.items.toList())
                 }
                 is Result.Error -> {
+                    if (result.exception is SSLHandshakeException) {
+                        val handled = withContext(dispatcherProvider.io) {
+                            tlsProviderInstaller?.install()
+                        }
+                        if (handled != null && handled) {
+                            termUpdated(term)
+                            return@launch
+                        }
+                    }
                     val message = result.exception.message
                     if (message != null && !message.contains("cancelled"))
                         stateLiveData.value =
