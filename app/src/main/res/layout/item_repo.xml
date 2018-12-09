@@ -36,7 +36,8 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/cardItemTitle"
-            android:textSize="@dimen/cardItemTitle" />
+            android:textSize="@dimen/cardItemTitle"
+            tools:text="GithubSearch"/>
 
         <TextView
             android:id="@+id/description"
@@ -46,7 +47,8 @@
             android:maxLines="2"
             android:ellipsize="end"
             android:textColor="@color/cardItemDescription"
-            android:textSize="@dimen/cardItemDescription" />
+            android:textSize="@dimen/cardItemDescription"
+            tools:text="A sample github search app"/>
 
         <TextView
             android:id="@+id/score"
@@ -56,7 +58,8 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/cardItemDescription" />
+            android:textSize="@dimen/cardItemDescription"
+            tools:text="Score: 256"/>
 
     </LinearLayout>
 
