@@ -6,6 +6,7 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.samsaz.githubsearch.R
 import com.samsaz.githubsearch.model.Repo
 import com.samsaz.githubsearch.util.GlideApp
@@ -21,15 +22,19 @@ class GithubRepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(repo: Repo) = with(itemView) {
         name.text = repo.name
         description.text = repo.description
-        val transform = MultiTransformation(
-            FitCenter(),
-            RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.cardItemCornerRadius))
-        )
+
+        val transition = DrawableTransitionOptions.withCrossFade(DrawableCrossFadeFactory.Builder()
+            .setCrossFadeEnabled(true))
+        val transform = MultiTransformation(FitCenter(),
+            RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.cardItemCornerRadius)))
+
         GlideApp.with(itemView)
             .load(repo.owner.avatarUrl)
+            .placeholder(R.drawable.ic_github_list)
             .transform(transform)
-            .transition(DrawableTransitionOptions.withCrossFade())
+            .transition(transition)
             .into(itemView.userImage)
+
         score.text = resources.getString(R.string.score, calculateScore(repo))
     }
 
