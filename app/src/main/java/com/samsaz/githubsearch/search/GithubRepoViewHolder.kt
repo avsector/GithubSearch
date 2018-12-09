@@ -19,14 +19,14 @@ import kotlinx.android.synthetic.main.item_repo.view.*
 
 class GithubRepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+    private val transition = DrawableTransitionOptions
+        .withCrossFade(DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true))
+    private val transform = MultiTransformation(FitCenter(),
+        RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.cardItemCornerRadius)))
+
     fun bind(repo: Repo) = with(itemView) {
         name.text = repo.name
         description.text = repo.description
-
-        val transition = DrawableTransitionOptions.withCrossFade(DrawableCrossFadeFactory.Builder()
-            .setCrossFadeEnabled(true))
-        val transform = MultiTransformation(FitCenter(),
-            RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.cardItemCornerRadius)))
 
         GlideApp.with(itemView)
             .load(repo.owner.avatarUrl)
