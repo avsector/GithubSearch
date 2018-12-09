@@ -1,5 +1,6 @@
 package com.samsaz.githubsearch.search
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.samsaz.githubsearch.data.CoroutineDispatcherProvider
@@ -26,7 +27,7 @@ class SearchViewModel @Inject constructor(
     private val scope = CoroutineScope(dispatcherProvider.main + parentJob)
     private var lastSearchJob: Job? = null
 
-    val stateLiveData = MutableLiveData<SearchViewState>()
+    private val stateLiveData = MutableLiveData<SearchViewState>()
 
     fun onEvent(event: SearchViewEvent) {
         when (event) {
@@ -74,6 +75,10 @@ class SearchViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun getStateLiveData(): LiveData<SearchViewState> {
+        return stateLiveData
     }
 
     override fun onCleared() {

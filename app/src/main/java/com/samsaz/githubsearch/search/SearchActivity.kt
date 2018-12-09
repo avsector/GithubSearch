@@ -51,7 +51,7 @@ class SearchActivity: AppCompatActivity() {
         rvList.adapter = repositoryAdapter
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[SearchViewModel::class.java]
-        viewModel.stateLiveData.observe(this, Observer{
+        viewModel.getStateLiveData().observe(this, Observer{
             updateState(it)
         })
 
