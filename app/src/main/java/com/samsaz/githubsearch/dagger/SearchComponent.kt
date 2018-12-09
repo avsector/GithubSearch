@@ -9,7 +9,7 @@ import dagger.Component
  * Copyright 2018
  * Created and maintained by Hamid Moazzami
  */
-@Component(modules = [CoroutineDispatcherModule::class], dependencies = [CoreComponent::class])
+@Component(dependencies = [CoreComponent::class])
 interface SearchComponent {
 
     fun inject(activity: SearchActivity)

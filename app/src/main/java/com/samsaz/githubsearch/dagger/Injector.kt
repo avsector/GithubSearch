@@ -12,7 +12,6 @@ import com.samsaz.githubsearch.search.SearchActivity
 fun inject(searchActivity: SearchActivity) {
     DaggerSearchComponent.builder()
         .coreComponent(MyApplication.coreComponent(searchActivity))
-        .coroutineDispatcherModule(CoroutineDispatcherModule())
         .build()
         .inject(searchActivity)
 }

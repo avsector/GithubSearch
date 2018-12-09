@@ -2,6 +2,7 @@ package com.samsaz.githubsearch.dagger
 
 import android.app.Application
 import android.content.Context
+import com.samsaz.githubsearch.data.CoroutineDispatcherProvider
 import com.samsaz.githubsearch.data.GithubRepository
 import dagger.BindsInstance
 import dagger.Component
@@ -12,11 +13,12 @@ import dagger.Component
  * Created and maintained by Hamid Moazzami
  */
 
-@Component(modules = [GithubApiModule::class, AppModule::class])
+@Component(modules = [GithubApiModule::class, AppModule::class, CoroutineDispatcherModule::class])
 interface CoreComponent {
 
     fun getGithubRepository(): GithubRepository
     fun getAppContext(): Context
+    fun getCoroutineDispatcherProvider(): CoroutineDispatcherProvider
 
     @Component.Builder
     interface Builder {
