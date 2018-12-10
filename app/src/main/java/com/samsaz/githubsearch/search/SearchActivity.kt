@@ -1,9 +1,11 @@
 package com.samsaz.githubsearch.search
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -49,6 +51,13 @@ class SearchActivity: AppCompatActivity() {
 
         rvList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvList.adapter = repositoryAdapter
+        rvList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState != RecyclerView.SCROLL_STATE_IDLE) {
+                    hideKeyboard()
+                }
+            }
+        })
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[SearchViewModel::class.java]
         viewModel.getStateLiveData().observe(this, Observer{
@@ -95,5 +104,10 @@ class SearchActivity: AppCompatActivity() {
                 loadingView.setState(LoadingView.State.Progress())
             }
         }.checkAllMatched
+    }
+
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(etInput.windowToken, 0)
     }
 }
