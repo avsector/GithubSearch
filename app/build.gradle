@@ -43,7 +43,7 @@ dependencies {
     implementation "com.google.dagger:dagger:${versions.dagger}"
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
     implementation "com.google.android.gms:play-services-auth:${versions.playServices}"
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:${versions.junit}"
     testImplementation "org.mockito:mockito-core:${versions.mockito}"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.mockitoKotlin}"
     testImplementation "androidx.arch.core:core-testing:${versions.viewModel}"
