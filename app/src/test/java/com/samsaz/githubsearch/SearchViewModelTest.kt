@@ -61,7 +61,7 @@ class SearchViewModelTest {
     }
 
     private fun getState(viewModel: SearchViewModel): SearchViewState? {
-        return LiveDataTestUtil.getValue(viewModel.stateLiveData)
+        return LiveDataTestUtil.getValue(viewModel.getStateLiveData())
     }
 
     private fun simulateSearch(repos: Array<Repo>?, withDelay: Boolean, term: String = "term"):
